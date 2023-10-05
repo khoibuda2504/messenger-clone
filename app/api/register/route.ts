@@ -22,7 +22,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(user);
   } catch (error) {
-    console.log(error);
     return new NextResponse("Error", { status: 500 });
   }
 }

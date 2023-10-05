@@ -1,6 +1,7 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
+import { pusherServer } from "@/app/libs/pusher";
 interface IParams {
   conversationId?: string;
 }
@@ -34,6 +35,11 @@ export async function DELETE(
         },
       },
     });
+    existingConversation.users.map((user) => {
+      if (user.email) {
+        pusherServer.trigger(user.email, "conversation:remove", deletedConversation);
+      }
+    })
     return NextResponse.json(deletedConversation);
   } catch (error) {
     return new NextResponse("InternalError", { status: 500 });

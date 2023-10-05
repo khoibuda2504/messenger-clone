@@ -58,6 +58,8 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     if (lastMessage.seenIds.indexOf(currentUser?.id) !== -1) {
       return NextResponse.json(conversation);
     }
+    await pusherServer.trigger(conversationId!, 'messages:update', updatedMessage)
+
     return NextResponse.json(updatedMessage);
   } catch (error) {
     return new NextResponse("InternalError", { status: 500 });
