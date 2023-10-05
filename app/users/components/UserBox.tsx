@@ -26,7 +26,7 @@ export default function UserBox({ data }: UserBoxProps) {
 
   return (
     <>
-      <LoadingModal />
+      {isLoading && <LoadingModal />}
       <div
         onClick={handleClick}
         className="
