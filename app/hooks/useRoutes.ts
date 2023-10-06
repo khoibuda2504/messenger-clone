@@ -9,7 +9,7 @@ import useConversation from "./useConversation";
 const useRoutes = () => {
   const pathname = usePathname();
   const { conversationId } = useConversation();
-
+console.log('pathname:::::', pathname)
   const routes = useMemo(
     () => [
       {
